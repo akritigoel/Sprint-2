@@ -1,0 +1,67 @@
+///////////////////////////////////////////////////ASSESSMENT TABLE/////////////////////////////////////////////////////////
+
+select DBMS_METADATA.GET_DDL('TABLE','ASSESSMENT') from dual;
+
+  CREATE TABLE "SYSTEM"."ASSESSMENT"
+   (    "TEST_ID" NUMBER(19,2) NOT NULL ENABLE,
+        "END_TIME" TIMESTAMP (6),
+        "START_TIME" TIMESTAMP (6),
+        "TEST_DURATION" DATE,
+        "TEST_MARKS_SCORED" NUMBER(19,2),
+        "TEST_TITLE" VARCHAR2(255 CHAR),
+        "TEST_TOTAL_MARKS" NUMBER(19,2),
+        "STUDENT_STUDENT_ID" NUMBER(19,0),
+         PRIMARY KEY ("TEST_ID")
+         CONSTRAINT "FK5GEGEF9GYSY04UYIMABKX93A1" FOREIGN KEY ("STUDENT_STUDENT_ID")
+          REFERENCES "SYSTEM"."STUDENT" ("STUDENT_ID") ENABLE
+   ) 
+
+/////////////////////////////////////////////////ANSWERS TABLE/////////////////////////////////////////////////////////////
+
+ select DBMS_METADATA.GET_DDL('TABLE','ANSWERS') from dual;
+
+  CREATE TABLE "SYSTEM"."ANSWERS"
+   (    "ID" NUMBER(10,0) NOT NULL ENABLE,
+        "VALUE" VARCHAR2(255 CHAR),
+        "QUESTION_QUESTION_ID" NUMBER(19,2),
+         PRIMARY KEY ("ID")
+         CONSTRAINT "FKBIML4UUIGU5IPTSUQ9RTM6NP6" FOREIGN KEY ("QUESTION_QUESTION_ID")
+          REFERENCES "SYSTEM"."QUESTIONS" ("QUESTION_ID") ENABLE
+   )
+//////////////////////////////////////////////////QUESTIONS TABLE//////////////////////////////////////////////////////////
+
+ select DBMS_METADATA.GET_DDL('TABLE','QUESTIONS') from dual;
+
+  CREATE TABLE "SYSTEM"."QUESTIONS"
+   (    "QUESTION_ID" NUMBER(19,2) NOT NULL ENABLE,
+        "CHOICE" NUMBER(10,0) NOT NULL ENABLE,
+        "CHOSEN_ANSWER" NUMBER(10,0) NOT NULL ENABLE,
+        "MARKS_SCORED" NUMBER(10,0) NOT NULL ENABLE,
+        "QUESTION_MARKS" NUMBER(10,0) NOT NULL ENABLE,
+        "QUESTION_TITLE" VARCHAR2(255 CHAR),
+        "TEST_TEST_ID" NUMBER(19,2),
+         PRIMARY KEY ("QUESTION_ID")
+         CONSTRAINT "FKPDYQ5N7OTV2DO4WAT8GW40BF5" FOREIGN KEY ("TEST_TEST_ID")
+          REFERENCES "SYSTEM"."ASSESSMENT" ("TEST_ID") ENABLE
+   ) 
+/////////////////////////////////////////////////////////STUDENT TABLE/////////////////////////////////////////////////////
+
+SQL> select DBMS_METADATA.GET_DDL('TABLE','STUDENT') from dual;
+
+  CREATE TABLE "SYSTEM"."STUDENT"
+   (    "STUDENT_ID" NUMBER(19,0) NOT NULL ENABLE,
+        "STUDENT_NAME" VARCHAR2(255 CHAR),
+        "STUDENT_PASSWORD" VARCHAR2(255 CHAR),
+        "TEST_ID_TEST_ID" NUMBER(19,2),
+         PRIMARY KEY ("STUDENT_ID")
+         CONSTRAINT "FKOUP3ED20DCDQ620YIQS00LOKL" FOREIGN KEY ("TEST_ID_TEST_ID")
+          REFERENCES "SYSTEM"."ASSESSMENT" ("TEST_ID") ENABLE
+   ) 
+////////////////////////////////////////////////ADMIN TABLE//////////////////
+
+CREATE TABLE `admin` (
+  `admin_id` decimal(19,2) NOT NULL,
+  `admin_name` varchar(255) DEFAULT NULL,
+  `admin_password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`admin_id`)
+) 
