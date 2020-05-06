@@ -47,7 +47,7 @@ public class StudentController {
 	@PutMapping("/updateStudent/{id}")
 	public String updateStudent(@PathVariable(value = "id") BigInteger stdId, @RequestBody Student studentDetails)
 			throws RecordNotFoundException {
-
+				studentDetails.setStudentId(stdId);
 		return stdService.updateStudent(stdId, studentDetails);
 	}
 
